@@ -1,3 +1,81 @@
-p {
-    color: red;
+/* квадратики */
+
+#square {
+    width: 12px;
+    height: 12px;
+    background: #ff4756;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+#square1 {
+    width: 12px;
+    height: 12px;
+    background: #f447ff;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+#square2 {
+    width: 12px;
+    height: 12px;
+    background: #4787ff;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+#square3 {
+    width: 12px;
+    height: 12px;
+    background: #47eaff;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+#square4 {
+    width: 12px;
+    height: 12px;
+    background: #FFF033;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+/* изменяет цвет квадратика при наведении курсора мышки */
+
+.colorrr {
+    background: #f447ff;
+}
+
+
+.border:hover {
+    border: 5px solid black;
+}
+.color-container {
+    margin-top: 10px;
+}
+
+.task-container {
+    background: antiquewhite;
+    margin: auto;
+    width: 600px;
+}
+
+.checkbox {
+    border-right: 1px solid gray;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-items: center;
+    display: grid;
+}
+
+.item {
+    border: 1px solid gray;
+    display: grid;
+    grid-template-columns: 10% 90%;
+    width: 100%;
+    height: 40px;
+    margin-top: 5px;
+    align-items: center;
 }
