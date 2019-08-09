@@ -1,43 +1,26 @@
 /* квадратики */
 
-#square {
-    width: 12px;
-    height: 12px;
+.square {
     background: #ff4756;
-    display: inline-block;
-    margin-right: 5px;
 }
 
-#square1 {
-    width: 12px;
-    height: 12px;
+.square1 {
     background: #f447ff;
-    display: inline-block;
-    margin-right: 5px;
 }
-
-#square2 {
-    width: 12px;
-    height: 12px;
+.square2 {
     background: #4787ff;
-    display: inline-block;
-    margin-right: 5px;
 }
 
-#square3 {
-    width: 12px;
-    height: 12px;
+.square3 {
     background: #47eaff;
-    display: inline-block;
-    margin-right: 5px;
 }
 
-#square4 {
-    width: 12px;
-    height: 12px;
+.square4 {
     background: #FFF033;
-    display: inline-block;
-    margin-right: 5px;
+}
+
+.selected {
+    border: 3px solid red;
 }
 
 
@@ -47,6 +30,12 @@
     background: #f447ff;
 }
 
+.border {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 5px
+}
 
 .border:hover {
     border: 5px solid black;
@@ -56,7 +45,7 @@
 }
 
 .task-container {
-    background: antiquewhite;
+    /* background: #a21e1e; */
     margin: auto;
     width: 600px;
 }
@@ -71,11 +60,15 @@
 }
 
 .item {
-    border: 1px solid gray;
+    border: 1px solid rgb(141, 138, 138);
     display: grid;
-    grid-template-columns: 10% 90%;
+    grid-template-columns: 10% 80% 10%;
     width: 100%;
     height: 40px;
-    margin-top: 5px;
+    margin-top: 1px;
     align-items: center;
+}
+
+.but-delete {
+    left: 10px;
 }
