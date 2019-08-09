@@ -72,3 +72,8 @@
 .but-delete {
     left: 10px;
 }
+
+#input-text {
+    width: 600px;
+    height: 40px;
+}

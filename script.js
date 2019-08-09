@@ -1,5 +1,8 @@
 $(document).ready( () => {
-    const todo = new ToDo()
+
+    const initialArray = JSON.parse(localStorage.getItem('todo'));
+    
+    const todo = new ToDo(initialArray)
 
     $('#add-button').on('click', (element) => todo.addItem(element))
     $('#input-text').keydown ((e) => {
@@ -18,15 +21,54 @@ $(document).ready( () => {
 })
 
 class ToDo {
+    constructor(initialArray) {
+        // console.log( initialArray, ' initial item');
+        this.listItems = initialArray || []
+        
+
+        this.init()
+    
+    }
+
+
+    /***
+     * 
+     * нужно повесить обрапботкчки 
+     * и допилить функционал
+     * 
+     * 
+     */
+
+    init() {
+        this.listItems.forEach(element => {
+            $('.task-container').append(
+                `
+                    <div class="item ${element.color}" id="${element.id}">
+                        <div class="checkbox">
+                            <input type="checkbox" checked="${element.checked}" class="form-check-input">
+                        </div>
+                        <div class="task">${element.text}</div>
+                        <div >
+                            <input type="submit" value="Delete" class="but-delete">
+                        </div>
+                    </div>
+                `
+            )
+        });
+
+    }
 
     addItem () {
+        // console.log( this.listItems, ' this.listItems');
+        
+
         let text = $('#input-text').val()
         $('#input-text').val('')
         
         let color = this.getActiveColor()
         $('.task-container').append(
             `
-                <div class="item ${color}">
+                <div class="item ${color}" >
                     <div class="checkbox">
                         <input type="checkbox" class="form-check-input">
                     </div>
@@ -37,6 +79,19 @@ class ToDo {
                 </div>
             `
         )
+
+        let item = {
+            text: text,
+            checked: false,
+            color: color,
+            id: Math.random()
+        }
+
+        this.listItems.push(item)
+        localStorage.setItem('todo', JSON.stringify(this.listItems))
+
+
+
         $('.task').on('click', (event) => {
             this.changeItem($(event.target))
         })
@@ -94,6 +149,19 @@ class ToDo {
         
         let item = target.parent().parent()
         $(item).remove()
+        const id = $(item).attr('id')
+        /**
+         * не законченый примерный вариант
+         * 
+         * 
+         * 
+         */
+
+        // const currentEl = this.listItems.find(item => item.id===id)
+        // this.listItems.splice(index , 1)
+
+        // localStorage.setItem('todo', JSON.stringify(this.listItems))
+        // // this.init()
         
     }
 
