@@ -11,7 +11,6 @@ $(document).ready( () => {
         }   
     })
     $('.border').click ((w) => {
-       
         $('.border').removeClass("selected")
         $(w.target).addClass("selected")
     
@@ -22,32 +21,23 @@ $(document).ready( () => {
 
 class ToDo {
     constructor(initialArray) {
-        // console.log( initialArray, ' initial item');
         this.listItems = initialArray || []
-        
-
         this.init()
     
     }
-
-
-    /***
-     * 
-     * нужно повесить обрапботкчки 
-     * и допилить функционал
-     * 
-     * 
-     */
 
     init() {
         this.listItems.forEach(element => {
             $('.task-container').append(
                 `
-                    <div class="item ${element.color}" id="${element.id}">
+                    <div class="item ${element.color}" id="${element.id}" >
                         <div class="checkbox">
-                            <input type="checkbox" checked="${element.checked}" class="form-check-input">
+                            <input type="checkbox" ${element.checked ? "checked" : null} class="form-check-input">
                         </div>
-                        <div class="task">${element.text}</div>
+                        <div class="task" 
+                        ${element.checked ?` style="text-decoration: line-through"` : null}>
+                            ${element.text}
+                        </div>
                         <div >
                             <input type="submit" value="Delete" class="but-delete">
                         </div>
@@ -56,19 +46,27 @@ class ToDo {
             )
         });
 
+        $('.task').on('click', (event) => {
+            this.changeItem($(event.target))
+        })
+        $('.but-delete').on('click', (event) => {
+            this.DeleteItem ($(event.target))
+        })
+        $('.form-check-input').click ((event) => {
+           this.CheckedItem($(event.target))
+        })
+    
     }
 
     addItem () {
-        // console.log( this.listItems, ' this.listItems');
-        
-
+        let colorid = Math.random()
         let text = $('#input-text').val()
         $('#input-text').val('')
         
         let color = this.getActiveColor()
         $('.task-container').append(
             `
-                <div class="item ${color}" >
+                <div class="item ${color}" id=${colorid}>
                     <div class="checkbox">
                         <input type="checkbox" class="form-check-input">
                     </div>
@@ -84,13 +82,11 @@ class ToDo {
             text: text,
             checked: false,
             color: color,
-            id: Math.random()
+            id: colorid
         }
 
         this.listItems.push(item)
         localStorage.setItem('todo', JSON.stringify(this.listItems))
-
-
 
         $('.task').on('click', (event) => {
             this.changeItem($(event.target))
@@ -141,7 +137,11 @@ class ToDo {
             item.attr('class', arr)
             $('#input-text').val('')
 
-
+            const id = $(item).attr('id')
+            let obj = this.listItems.find(elem => Number(elem.id) === Number(id))
+            obj.color = col
+            obj.text = str_n
+            localStorage.setItem('todo', JSON.stringify(this.listItems))
         }
     }
 
@@ -150,29 +150,27 @@ class ToDo {
         let item = target.parent().parent()
         $(item).remove()
         const id = $(item).attr('id')
-        /**
-         * не законченый примерный вариант
-         * 
-         * 
-         * 
-         */
-
-        // const currentEl = this.listItems.find(item => item.id===id)
-        // this.listItems.splice(index , 1)
-
-        // localStorage.setItem('todo', JSON.stringify(this.listItems))
-        // // this.init()
-        
+    
+        let w = this.listItems.findIndex(elem => elem.id === id)
+        this.listItems.splice(w, 1)
+       
+        localStorage.setItem('todo', JSON.stringify(this.listItems))
     }
 
     CheckedItem (target) {
         let w = target.parent().siblings('.task')
-        
-
         if (target.is(':checked')) {
             w.css('text-decoration', 'line-through')
         } else {
             w.css('text-decoration', 'none')
         }
+
+        let e = target.parent().parent()
+        const id = $(e).attr('id')
+       
+        let q = this.listItems.find(elem => Number(elem.id) === Number(id))
+        
+        q.checked = !q.checked
+        localStorage.setItem('todo', JSON.stringify(this.listItems))
     }
 }
