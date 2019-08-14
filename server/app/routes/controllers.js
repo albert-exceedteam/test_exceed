@@ -8,6 +8,7 @@ exports.addItem = (req, res) => {
         .catch(err => res.status(400).send({message: 'Vse ne OK', error: err}))
 }
 exports.getItem = (req, res) => {    
+    console.log ('GET')
     Item.find({}, (err, Item) => res.json(Item))
     .catch(err => res.status(400).send({message: 'Vse ne OK', error: err}))
 }
