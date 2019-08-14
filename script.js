@@ -1,8 +1,17 @@
 $(document).ready( () => {
 
-    const initialArray = JSON.parse(localStorage.getItem('todo'));
+    fetch('http://localhost:8000/todo/', {
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+        },
+        mode: 'no-cors',
+    })
+     .then(response => response.json())
+     .then(items => {
+        
     
-    const todo = new ToDo(initialArray)
+    const todo = new ToDo(items)
 
     $('#add-button').on('click', (element) => todo.addItem(element))
     $('#input-text').keydown ((e) => {
@@ -15,7 +24,8 @@ $(document).ready( () => {
         $(w.target).addClass("selected")
     
     })
-    
+        }    );
+
 
 })
 
@@ -30,7 +40,7 @@ class ToDo {
         this.listItems.forEach(element => {
             $('.task-container').append(
                 `
-                    <div class="item ${element.color}" id="${element.id}" >
+                    <div class="item ${element.color}" id="${element._id}" >
                         <div class="checkbox">
                             <input type="checkbox" ${element.checked ? "checked" : null} class="form-check-input">
                         </div>
