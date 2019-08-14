@@ -84,6 +84,20 @@ class ToDo {
             color: color,
             id: colorid
         }
+        // fetch('http://localhosta;oscob;ao/.../add-todo')
+
+        // .then(res... распарсили(JSON.parse))
+        // .then(
+            /**
+             * проверка status === 201
+              *   show  'ok'
+              * else
+              * 
+              *     показываем ошибку
+              *     show  =>>>  (res.message)
+              * 
+             */
+        // )
 
         this.listItems.push(item)
         localStorage.setItem('todo', JSON.stringify(this.listItems))
